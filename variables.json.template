@@ -1,0 +1,16 @@
+{
+  "vcenter_server": "#{vcenter_server}",
+  "vcenter_username": "#{vcenter_username}",
+  "vcenter_password": "#{vcenter_password}",
+  "vcenter_cluster": "#{vcenter_cluster}",
+  "vcenter_network": "#{vcenter_network}",
+  "vcenter_datastore": "#{vcenter_datastore}",
+  "vcenter_folder": "#{vcenter_folder}",
+  "vcenter_iso_datastore": "#{vcenter_iso_datastore}",
+  "vcenter_iso_path": "#{vcenter_iso_path}",
+  "packer_password": "#{packer_password}",
+  "vm_name": "#{vm_name}",
+  "vm_disk": "#{vm_disk}",
+  "vm_cpus": "#{vm_cpus}",
+  "vm_memory": "#{vm_memory}"
+}

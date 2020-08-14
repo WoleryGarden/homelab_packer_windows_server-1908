@@ -1,0 +1,76 @@
+{
+  "builders": [
+    {
+      "CPUs": "{{user `vm_cpus`}}",
+      "RAM": "{{user `vm_memory`}}",
+      "RAM_reserve_all": true,
+      "cluster": "{{user `vcenter_cluster`}}",
+      "communicator": "winrm",
+      "convert_to_template": "true",
+      "datastore": "{{user `vcenter_datastore`}}",
+      "disk_controller_type": "lsilogic-sas",
+      "firmware": "bios",
+      "floppy_files": [
+        "Autounattend.xml",
+        "./scripts/01 Unattend/install-vm-tools.cmd",
+        "./scripts/01 Unattend/enable-winrm.ps1",
+        "./scripts/01 Unattend/win-updates.ps1",
+        "./scripts/01 Unattend/disable-winrm.ps1", 
+        "./scripts/01 Unattend/disable-network-discovery.cmd",
+        "./scripts/01 Unattend/disable-screensaver.ps1",  
+        "./scripts/01 Unattend/disable-server-manager.ps1",   
+        "./scripts/02 Provisioner/BTServer.bgi",
+        "./drivers/vmxnet3"
+      ],
+      "folder": "Templates",
+      "guest_os_type": "windows9Server64Guest",
+      "insecure_connection": "true",
+      "iso_paths": [
+        "[{{user `vcenter_iso_datastore`}}] {{user `vcenter_iso_path`}}",
+        "[] /vmimages/tools-isoimages/windows.iso"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `vcenter_network`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "password": "{{user `vcenter_password`}}",
+      "storage": [
+        {
+          "disk_size": "{{user `vm_disk`}}",
+          "disk_thin_provisioned": true
+        }
+      ],
+      "type": "vsphere-iso",
+      "username": "{{user `vcenter_username`}}",
+      "vcenter_server": "{{user `vcenter_server`}}",
+      "vm_name": "{{user `vm_name`}}",
+      "winrm_password": "{{user `packer_password`}}",
+      "winrm_username": "packer",
+      "winrm_timeout": "2h",
+      "ip_wait_timeout": "2h"
+
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+      "scripts": [
+        "./scripts/02 Provisioner/enable-rdp.bat"
+      ],
+      "type": "windows-shell"
+    },
+    {
+      "scripts": [
+        "./scripts/02 Provisioner/install-scoop.ps1",
+        "./scripts/02 Provisioner/install-bginfo.ps1",
+        "./scripts/02 Provisioner/ansible-winrm.ps1"
+      ],
+      "type": "powershell"
+    }
+  ],
+  "sensitive-variables": [
+    "vcenter_password"
+  ]
+}

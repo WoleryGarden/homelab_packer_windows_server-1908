@@ -1,0 +1,18 @@
+["variables.json"]
+vcenter_server = "vault:secret/packer/windows-2019:vcenter_server"
+vcenter_username = "vault:secret/packer/windows-2019:vcenter_username"
+vcenter_password = "vault:secret/packer/windows-2019:vcenter_password"
+vcenter_cluster = "vault:secret/packer/windows-2019:vcenter_cluster"
+vcenter_network = "vault:secret/packer/windows-2019:vcenter_network"
+vcenter_datastore = "vault:secret/packer/windows-2019:vcenter_datastore"
+vcenter_folder = "Templates"
+vcenter_iso_datastore = "HDD1"
+vcenter_iso_path ="ISO/en_windows_server_version_2004_updated_july_2020_x64_dvd_b9746c6e.iso"
+vm_name = "windows-2019-base"
+vm_disk = "32768"
+vm_cpus = "2"
+vm_memory= "4096"
+packer_password = "vault:secret/packer-templates/windows-2019-base:password"
+
+["Autounattend.xml"]
+packer_password = "vault:secret/packer-templates/windows-2019-base:password"

@@ -1,0 +1,2 @@
+﻿["test-vault.toml"]
+file = "vault:/secret/octomerge/homelab_packer_windows_server_1908:vars.toml"
